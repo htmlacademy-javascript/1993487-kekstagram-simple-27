@@ -7,7 +7,6 @@ const getRandomIntInclusive = (min, max) => {
   const result = (Math.random() * (upper - lower + 1)) + lower;
   return Math.floor(result);
 };
-getRandomIntInclusive (2, 100);
 
 const getRandomArrayElement = (elements) => elements [getRandomIntInclusive(0, elements.length - 1)];
 

@@ -38,8 +38,8 @@ const createData = (index) => ({
   comments: getRandomIntInclusive (0, 200),
 });
 
-const posts = () => Array.from({length: PICTURE_COUNT}, (_, pictureIndex) =>
+const createPosts = () => Array.from({length: PICTURE_COUNT}, (_, pictureIndex) =>
   createData(pictureIndex + 1)
 );
 
-export {posts};
+export {createPosts};
