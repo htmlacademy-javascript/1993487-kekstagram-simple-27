@@ -7,15 +7,17 @@ const body = document.querySelector('body');
 const DateForm = document.querySelector('.img-upload__form');
 const commentField = document.querySelector('.text__description');
 
+let closeModal = null;
+
 const isTextFieldFocused = () =>
   document.activeElement === commentField;
 
-function onModalEscKeydown(evt) {
+const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
     closeModal();
   }
-}
+};
 
 const showModal = () => {
   fotoEditingForm.classList.remove('hidden');
@@ -25,8 +27,7 @@ const showModal = () => {
 
 fieldForLoadingFoto.addEventListener('click', showModal);
 
-
-const closeModal = () => {
+closeModal = () => {
   fotoEditingForm.classList.add('hidden');
   body.classList.remove('modal-open');
   DateForm.reset();
