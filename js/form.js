@@ -1,4 +1,6 @@
 import {isEscapeKey} from './util.js';
+import {resetScale} from './scale.js';
+import {resetEffects} from './effects.js';
 
 const fieldForLoadingFoto = document.querySelector('#upload-file');
 const fotoEditingForm = document.querySelector('.img-upload__overlay');
@@ -31,6 +33,8 @@ closeModal = () => {
   fotoEditingForm.classList.add('hidden');
   body.classList.remove('modal-open');
   DateForm.reset();
+  resetScale();
+  resetEffects();
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
