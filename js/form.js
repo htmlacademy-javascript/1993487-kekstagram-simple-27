@@ -1,6 +1,8 @@
 import {isEscapeKey} from './util.js';
 import {resetScale} from './scale.js';
 import {resetEffects} from './effects.js';
+import { showSuccessMessage, showErrorMessage } from './messages.js';
+import { sendData } from './api.js';
 
 const fieldForLoadingFoto = document.querySelector('#upload-file');
 const fotoEditingForm = document.querySelector('.img-upload__overlay');
@@ -8,6 +10,7 @@ const closeModalForm = document.querySelector('.img-upload__cancel');
 const body = document.querySelector('body');
 const DateForm = document.querySelector('.img-upload__form');
 const commentField = document.querySelector('.text__description');
+const submitButtonElement = document.querySelector('.img-upload__submit');
 
 let closeModal = null;
 
@@ -48,9 +51,38 @@ const pristine = new Pristine(DateForm, {
 true
 );
 
-DateForm.addEventListener('submit', (evt) => {
+const blockSubmitButton = () => {
+  submitButtonElement.disabled = true;
+  submitButtonElement.textContent = 'Публикую...';
+};
+const unblockSubmitButton = () => {
+  submitButtonElement.disabled = false;
+  submitButtonElement.textContent = 'Опубликовать';
+};
+
+const onFormSubmit = (evt) => {
+  evt.preventDefault();
+
   const isValid = pristine.validate();
-  if (!isValid) {
-    evt.preventDefault();
+  if (isValid) {
+    blockSubmitButton();
+    sendData(
+      () => {
+        showSuccessMessage();
+        unblockSubmitButton();
+        closeModal();
+      },
+      () => {
+        showErrorMessage();
+        unblockSubmitButton();
+      },
+      new FormData(evt.target),
+    );
   }
-});
+};
+
+const initValidation = () => {
+  DateForm.addEventListener('submit', onFormSubmit);
+};
+
+export { initValidation };
