@@ -1,10 +1,10 @@
 const imageElement = document.querySelector('.img-upload__preview img');
-const DateForm = document.querySelector('.img-upload__form');
+const dateFormElement = document.querySelector('.img-upload__form');
 const sliderElement = document.querySelector('.effect-level__slider');
 const effectLevelElement = document.querySelector('.effect-level__value');
-const blockSlider = document.querySelector('.effect-level');
+const effectLevelGeneralElement = document.querySelector('.effect-level');
 
-const EFFECT = [
+const EFFECTS = [
   {
     name: 'none',
     min: 0,
@@ -53,13 +53,13 @@ const EFFECT = [
   },
 ];
 
-const DEFAULT_EFFECT = EFFECT[0];
+const DEFAULT_EFFECT = EFFECTS[0];
 let chosenEffect = DEFAULT_EFFECT;
 
 const isDefault = () => chosenEffect === DEFAULT_EFFECT;
 
 const updateSlider = () => {
-  blockSlider.classList.remove('hidden');
+  effectLevelGeneralElement.classList.remove('hidden');
   sliderElement.noUiSlider.updateOptions({
     range: {
       min: chosenEffect.min,
@@ -70,7 +70,7 @@ const updateSlider = () => {
   });
 
   if (isDefault()) {
-    blockSlider.classList.add('hidden');
+    effectLevelGeneralElement.classList.add('hidden');
   }
 };
 
@@ -78,7 +78,7 @@ const onFormChange = (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
-  chosenEffect = EFFECT.find((effect) => effect.name === evt.target.value);
+  chosenEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
   updateSlider();
 };
 
@@ -112,7 +112,7 @@ noUiSlider.create(sliderElement, {
 
 updateSlider();
 
-DateForm.addEventListener('change', onFormChange);
+dateFormElement.addEventListener('change', onFormChange);
 sliderElement.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };

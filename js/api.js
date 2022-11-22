@@ -6,7 +6,7 @@ const getData = (onSuccess, onError) => {
       }
     })
     .then((posts) => onSuccess(posts))
-    .catch(() => onError());
+    .catch(() => onError('Не удалось загрузить фотографии других пользователей'));
 };
 
 const sendData = (onSuccess, onFail, body) => {

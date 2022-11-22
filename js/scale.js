@@ -1,12 +1,12 @@
-const smallerButton = document.querySelector('.scale__control--smaller');
-const biggerButton = document.querySelector('.scale__control--bigger');
-const imageScale = document.querySelector('.scale__control--value');
-const image = document.querySelector('.img-upload__preview img');
-
 const STEP_SCALE = 25;
 const MIN_SCALE = 25;
 const MAX_SCALE = 100;
 const DEFOLT_SCALE = 100;
+
+const smallerButton = document.querySelector('.scale__control--smaller');
+const biggerButton = document.querySelector('.scale__control--bigger');
+const imageScale = document.querySelector('.scale__control--value');
+const image = document.querySelector('.img-upload__preview img');
 
 const scaleImage = (value = DEFOLT_SCALE) => {
   image.style.transform = `scale(${value / 100})`;
