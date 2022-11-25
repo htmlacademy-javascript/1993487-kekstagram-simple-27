@@ -12,7 +12,7 @@ const dateFormElement = document.querySelector('.img-upload__form');
 const commentFieldElement = document.querySelector('.text__description');
 const submitButtonElement = document.querySelector('.img-upload__submit');
 
-let closeModal = null;
+let onCloseModalClick = null;
 
 const isTextFieldFocused = () =>
   document.activeElement === commentFieldElement;
@@ -20,19 +20,19 @@ const isTextFieldFocused = () =>
 const onModalEscKeydown = (evt) => {
   if (isEscapeKey(evt) && !isTextFieldFocused()) {
     evt.preventDefault();
-    closeModal();
+    onCloseModalClick();
   }
 };
 
-const showModal = () => {
+const onShowModalChange = () => {
   fotoEditingFormElement.classList.remove('hidden');
   bodyElement.classList.add('modal-open');
   document.addEventListener('keydown', onModalEscKeydown);
 };
 
-loadFotoElement.addEventListener('click', showModal);
+loadFotoElement.addEventListener('change', onShowModalChange);
 
-closeModal = () => {
+onCloseModalClick = () => {
   fotoEditingFormElement.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   dateFormElement.reset();
@@ -41,7 +41,7 @@ closeModal = () => {
   document.removeEventListener('keydown', onModalEscKeydown);
 };
 
-closeButtonElement.addEventListener('click', closeModal);
+closeButtonElement.addEventListener('click', onCloseModalClick);
 
 const pristine = new Pristine(dateFormElement, {
   classTo: 'img-upload__text',
@@ -70,7 +70,7 @@ const onFormSubmit = (evt) => {
       () => {
         showSuccessMessage();
         unblockSubmitButton();
-        closeModal();
+        onCloseModalClick();
       },
       () => {
         showErrorMessage();
